@@ -1,0 +1,42 @@
+【编译/运行】
+编译：
+    ./gradlew :spring-boot-demo1:build
+运行：
+    ./gradlew :spring-boot-demo1:bootRun
+产生的jar包目录：
+    spring-boot-demo\spring-boot-demo1\build\libs
+jar运行：
+    java -jar spring-boot-demo1-1.0-SNAPSHOT.jar
+
+【相关技术】
+undertow：嵌入式web容器
+    compile("org.springframework.boot:spring-boot-starter-undertow")
+jpa：数据库访问）
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("mysql:mysql-connector-java")
+freemarker：页面模板
+    compile("org.springframework.boot:spring-boot-starter-freemarker")
+thymeleaf：页面模板
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+CORS：跨域处理
+    方式一：@CrossOrigin(origins = {"http://127.0.0.1:8888", "http://localhost:8888"}, maxAge = 3600)
+    方式二：通过com.elveny.demo.spring_boot_demo1.config.WebConfig配置corsConfigurer
+security：安全
+    compile("org.springframework.boot:spring-boot-starter-security")
+actuator：spring boot提供的对应用系统的自省和监控的集成功能，可以对应用系统进行配置查看、相关功能统计等
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+HATEOAS：HATEOAS (Hypermedia as the Engine of Application State) 是 REST 架构风格上的一种限制
+    基于 HATEOAS 的 REST 服务可以允许服务端和客户端在最大程度上的解耦。客户端和服务端并不需要严格的接口规范。客户端可以通过服务端提供的超媒体表示来动态与服务端进行交互。
+remote-shell：spring-boot自带一种远程维护的shell工具命令
+    compile("org.springframework.boot:spring-boot-starter-remote-shell")
+war：打成war包
+    （1）Application extends SpringBootServletInitializer
+    （2）build.gradle：
+        apply plugin: 'war'
+        war {
+            baseName = 'spring-boot-demo'
+            version =  '0.1.0'
+        }
+    （3）./gradlew :spring-boot-demo1:clean build （也可以./gradlew :spring-boot-demo1:bootRun，这样的效果与jar包一致）
+    （4）拷贝spring-boot-demo-0.1.0.war到tomcat/webapps目录
+    （5）启动tomcat，并访问http://127.0.0.1:8888/spring-boot-demo/rest/test/test1

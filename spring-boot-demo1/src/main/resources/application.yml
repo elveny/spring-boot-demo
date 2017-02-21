@@ -1,0 +1,171 @@
+# application.yml
+# YML文件格式是YAML (YAML Aint Markup Language)编写的文件格式,YAML是一种直观的能够被电脑识别的的数据数据序列化格式,他并且容易被人类阅读.
+# 注意：yml的缩进，使用空格符，而不要使用tab键
+
+# 应用相关
+app:
+    name: spring-boot-demo
+    description: ${app.name} is a Spring Boot application
+
+application:
+    message: Hello, elven
+
+# 应用信息
+info:
+    contact.email: elven1984@gmail.com
+    contact.phone: 18888888888
+    app.name: ${app.name}
+    app.description: ${app.name} is a Spring Boot application
+
+# 服务器设置（端口等）
+server:
+    port: 9999 # 0:随机端口, -1表示禁止HTTP端口
+    undertow:
+        accesslog:
+            enabled: true
+
+# 日志
+logging:
+    level:
+        root: INFO #FATAL ERROR WARN INFO DEBUG TRACE
+    path: ./    # ./表示当前应用的根目录
+    file: ./logs/spring-boot-demo.log    # 设置日志文件
+
+# jpa相关
+spring:
+    datasource:
+        url: jdbc:mysql://127.0.0.1:3306/test
+        username: test
+        password: 1223334444
+        driverClassname: com.mysql.jdbc.Driver
+    jpa:
+        database: MYSQL
+        show-sql: true
+        hibernate:
+            # ddl-auto值：
+            # create：每次加载hibernate时都会删除上一次生成的表，然后根据model类再重新生成新表
+            # create-drop：每次加载hibernate时根据model类生成表，但sessionFactory关闭，表就自动删除
+            # update：第一次加载hibernate时根据model自动建立表结构，以后加载hibernate时会根据model类自动更新表结构，单不会删除以前的数据（最常用）
+            # validate： 每次加载hibernate，验证创建数据库表结构，只会和数据库中的表进行比较，不会创建新表，但会插入新值
+            ddl-auto: update
+            naming-stategy: org.hibernate.cfg.ImprovedNamingStrategy
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.MySQL5Dialect
+
+# 应用安全设置
+security:
+    user:
+        name: admin
+        password: 1223334444
+
+# application管理（监控）服务相关设置
+management:
+    address: 127.0.0.1
+    # port:-1表示不能通过http访问管理服务
+    port: 9998
+    context-path: /manage
+    security:
+        enabled: false
+
+# 管理监控点设置
+endpoints:
+    enabled: true
+    sensitive: false
+    cors:
+        allowed-origins: http://example.com
+        allowed-methods: GET,POST
+    actuator:
+        id: actuator
+        path: /actuator
+        enabled: true
+        sensitive: true
+    autoconfig:
+        id: autoconfig
+        path: /actuator/autoconfig
+        enabled: true
+        sensitive: true
+    beans:
+        id: beans
+        path: /actuator/beans
+        enabled: true
+        sensitive: false
+    configprops:
+        id: configprops
+        path: /actuator/configprops
+        enabled: true
+        sensitive: true
+    docs:
+        id: docs
+        path: /actuator/docs
+        enabled: true
+        sensitive: true
+    dump:
+        id: dump
+        path: /actuator/dump
+        enabled: true
+        sensitive: true
+    env:
+        id: env
+        path: /actuator/env
+        enabled: true
+        sensitive: true
+    flyway:
+        id: flyway
+        path: /actuator/flyway
+        enabled: true
+        sensitive: true
+    health:
+        id: health
+        path: /actuator/health
+        enabled: true
+        sensitive: true
+        # 缓存时间（毫秒）
+        time-to-live: 1000
+    info:
+        id: info
+        path: /actuator/info
+        enabled: true
+        sensitive: true
+    liquibase:
+        id: liquibase
+        path: /actuator/liquibase
+        enabled: true
+        sensitive: true
+    logfile:
+        id: logfile
+        path: /actuator/logfile
+        enabled: true
+        sensitive: true
+    metrics:
+        id: metrics
+        path: /actuator/metrics
+        enabled: true
+        sensitive: true
+    mappings:
+        id: mappings
+        path: /actuator/mappings
+        enabled: true
+        sensitive: true
+    shutdown:
+        id: shutdown
+        path: /actuator/shutdown
+        enabled: true
+        sensitive: true
+    trace:
+        id: trace
+        path: /actuator/trace
+        enabled: true
+        sensitive: true
+
+# remote-shell配置
+shell:
+    ssh:
+        enabled: true
+        port: 9997
+    # simple模式是最简单的权限模式，如果使用spring-boot-starter-security，则此配置失效
+    auth:
+        simple:
+            user:
+                name: root
+                password: root
